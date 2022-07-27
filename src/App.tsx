@@ -1,32 +1,53 @@
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from './redux/store'
+
 import reactLogo from './assets/react.svg'
+import reduxLogo from './assets/redux.png'
+
+
+import { decrement, increment, reset } from './redux/slices/counter/counterSlice'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const count = useSelector((state: RootState) => state.counter.value)
+  const dispatch = useDispatch()
+
+
 
   return (
     <div className="App">
+
       <div>
-        <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+          <img src={reduxLogo} className="logo redux" alt="Redux logo" />
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <h2>Vite + React + Typescript + Redux Toolkit</h2>
+
+      <div>
+   
+          <button onClick={ () => dispatch( increment() ) }>
+            +
+          </button>
+    
+          <button onClick={ () => dispatch( decrement() ) }>
+            -
+          </button>
+
+          <button onClick={ () => dispatch( reset() ) }>
+            R
+          </button>
+
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <div>
+        <h1>{ count }</h1>
+      </div>
+
+
     </div>
   )
 }
